@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">DemoAppLock</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_lock_gallery">上鎖圖片庫</string>
+    <string name="action_unlock_gallery">解鎖圖片庫</string>
+
+    <string name="dialog_title">討厭照片被偷看?</string>
+
+    <string name="upgrade_message">升級華碩最新桌面\n立即享有保護照片的新功能</string>
+    <string name="upgrade_button">升級去</string>
+
+    <string name="lock_seconds">5&#160;</string>
+    <string name="lock_message">秒上鎖圖片庫</string>
+    <string name="lock_message_power">(powered by 華碩桌面)</string>
+    <string name="lock_button">上鎖去</string>
+
+</resources>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_gravity="center_horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dialog_title"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:textSize="20sp"
+        android:textColor="#373737"
+        android:layout_marginTop="26dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/upgrade_message"
+        android:layout_gravity="center_horizontal"
+        android:textSize="16sp"
+        android:textColor="#373737"
+        android:layout_marginTop="20dp"/>
+
+    <ImageView
+        android:layout_width="318dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/pic"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/upgrade_now"
+        android:layout_width="211dp"
+        android:layout_height="32dp"
+        android:text="@string/upgrade_button"
+        android:onClick="onActivate"
+        android:layout_gravity="center_horizontal"
+        android:background="#109bbc"
+        android:textColor="#ffffff"
+        android:textSize="16sp"
+        android:layout_marginTop="51dp"
+        android:layout_marginBottom="55dp" />
+
+</LinearLayout>

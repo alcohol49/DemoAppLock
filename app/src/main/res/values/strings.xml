@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">DemoAppLock</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_lock_gallery">Lock Gallery</string>
+    <string name="action_unlock_gallery">Unlock Gallery</string>
+
+    <string name="dialog_title">Want to prevent snoopers?</string>
+
+    <string name="upgrade_message">Upgrade to the latest ASUS\nLauncher to enjoy the benefit\nof protecting your privacy</string>
+    <string name="upgrade_button">Upgrade Now</string>
+
+    <string name="lock_seconds">5&#160;</string>
+    <string name="lock_message">seconds to lock Gallery</string>
+    <string name="lock_message_power">(powered by ASUS Launcher)</string>
+    <string name="lock_button">Lock Now</string>
+
+</resources>
