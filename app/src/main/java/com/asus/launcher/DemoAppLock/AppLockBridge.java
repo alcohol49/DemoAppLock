@@ -35,44 +35,6 @@ public class AppLockBridge extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-
-        sIsLocked = checkIfLocked(this, PKG_NAME);
-        final Button button = (Button) findViewById(R.id.button5);
-        if (sIsLocked) {
-            button.setText("解鎖圖片庫");
-        } else {
-            button.setText("上鎖圖片庫");
-        }
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if (!isLauncherSupport()) {
-                    DialogFragment dialog = new UpgradeDialog();
-                    dialog.show(getSupportFragmentManager(), "UpgradeDialog");
-                    Log.d("mingchun", "UpgradeDialog");
-                } else if (!checkIfActivated(getApplicationContext())) {
-                    DialogFragment dialog = new ActivateDialog();
-                    dialog.show(getSupportFragmentManager(), "ActivateDialog");
-                    Log.d("mingchun", "ActivateDialog");
-                } else {
-                    lockThis(getApplicationContext(), PKG_NAME);
-                    sIsLocked = !sIsLocked;
-                    Log.d("mingchun", "lockThis");
-                }
-
-                if (sIsLocked) {
-                    button.setText("解鎖圖片庫");
-                } else {
-                    button.setText("上鎖圖片庫");
-                }
-            }
-        });
-
-        updateMenu();
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -84,6 +46,7 @@ public class AppLockBridge extends AppCompatActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
+        // prevent from first launch
         if (mfirstTime == true) {
             mfirstTime = false;
             return true;
@@ -152,12 +115,17 @@ public class AppLockBridge extends AppCompatActivity {
     }
 
     public void onVersionCheck(View view) {
-//        Toast.makeText(this, "Launcher version = " + getAppVersionCode(this, LAUNCHER_PACKAGE_NAME), Toast.LENGTH_SHORT).show();
         Toast.makeText(this, "support =" + isLauncherSupport(), Toast.LENGTH_SHORT).show();
+    }
 
-        // test
+    public void onShowUpgrade(View view) {
         DialogFragment dialog = new UpgradeDialog();
         dialog.show(getSupportFragmentManager(), "UpgradeDialog");
+    }
+
+    public void onShowActivate(View view) {
+        DialogFragment dialog = new ActivateDialog();
+        dialog.show(getSupportFragmentManager(), "ActivateDialog");
     }
 
     // -- API --
@@ -166,7 +134,7 @@ public class AppLockBridge extends AppCompatActivity {
         try {
             return getApplicationContext().createPackageContext(packageName, Context.CONTEXT_INCLUDE_CODE | Context.CONTEXT_IGNORE_SECURITY);
         } catch (PackageManager.NameNotFoundException e) {
-            Log.e("mingchun", "Package name " + packageName + " not found");
+            Log.e(TAG, "Package name " + packageName + " not found");
             return null;
         }
     }
@@ -180,10 +148,10 @@ public class AppLockBridge extends AppCompatActivity {
                 int id = launcherContext.getResources().getIdentifier(
                         "support_lock_from_other_apps", "bool", "com.asus.launcher");
                 boolean support = launcherContext.getResources().getBoolean(id);
-                Log.d("mingchun", "isHave = " + support);
+                Log.d(TAG, "isHave = " + support);
                 return support;
             } catch (Resources.NotFoundException e) {
-                Log.d("mingchun", e.toString());
+                Log.d(TAG, e.toString());
             }
         }
 

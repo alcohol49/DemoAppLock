@@ -4,9 +4,9 @@
     <string name="action_lock_gallery">上鎖圖片庫</string>
     <string name="action_unlock_gallery">解鎖圖片庫</string>
 
-    <string name="dialog_title">討厭照片被偷看?</string>
+    <string name="dialog_title">討厭別人偷窺你的隱私?</string>
 
-    <string name="upgrade_message">升級華碩最新桌面\n立即享有保護照片的新功能</string>
+    <string name="upgrade_message">升級華碩最新桌面\n立即享有保護隱私的新功能</string>
     <string name="upgrade_button">升級去</string>
 
     <string name="lock_seconds">5&#160;</string>

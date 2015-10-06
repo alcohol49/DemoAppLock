@@ -7,14 +7,14 @@
     android:background="#ffffff">
 
     <ImageView
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:src="@drawable/pic"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginBottom="15dp" />
+        android:layout_marginBottom="10dp" />
 
     <LinearLayout
         android:orientation="vertical"
@@ -35,14 +35,20 @@
             android:layout_marginTop="20dp" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="220dp"
             android:layout_height="wrap_content"
             android:text="@string/upgrade_message"
             android:gravity="center"
             android:layout_gravity="center_horizontal"
             android:textSize="16sp"
             android:textColor="#373737"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:lines="3"
+            android:singleLine="false"
+            android:phoneNumber="false"
+            android:password="false" />
 
         <Button
             android:id="@+id/upgrade_now"
@@ -54,8 +60,7 @@
             android:background="#109bbc"
             android:textColor="#ffffff"
             android:textSize="16sp"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="25dp" />
+            android:layout_marginTop="51dp" />
     </LinearLayout>
 
 </LinearLayout>
