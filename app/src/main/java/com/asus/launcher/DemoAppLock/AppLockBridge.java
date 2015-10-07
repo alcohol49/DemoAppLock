@@ -1,6 +1,5 @@
 package com.asus.launcher.DemoAppLock;
 
-import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +14,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 import android.support.v4.app.DialogFragment;
 
@@ -23,10 +21,16 @@ import java.lang.reflect.Method;
 
 public class AppLockBridge extends AppCompatActivity {
 
-    static final String PKG_NAME = "com.asus.launcher.DemoAppLock";
-    static boolean sIsLocked;
+    public static final String TODO = "ToDo";
+    public static final String PACKAGE_NAME = "PackageName";
+    public static final int TODO_SEND_GA = 1;
+    public static final int TODO_LOCK = 2;
+    public static final int TODO_UNLOCK = 3;
+    public static final String PKG_NAME = "com.asus.launcher.DemoAppLock";
+    public static boolean sIsLocked;
+
     private Menu menu;
-    private boolean mfirstTime = true;
+    private boolean mFirstTime = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,39 +39,35 @@ public class AppLockBridge extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        sIsLocked = checkIfLocked(this, PKG_NAME);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         this.menu = menu;
 
-        updateMenu();
         return true;
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
+
+        updateMenu();
         // prevent from first launch
-        if (mfirstTime == true) {
-            mfirstTime = false;
+        if (mFirstTime == true) {
+            mFirstTime = false;
             return true;
         }
         sendGaMenuDisplay(PKG_NAME);
-        updateMenu();
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         if (id == R.id.action_lock_gallery) {
 
@@ -78,11 +78,9 @@ public class AppLockBridge extends AppCompatActivity {
                 DialogFragment dialog = new ActivateDialog();
                 dialog.show(getSupportFragmentManager(), "ActivateDialog");
             } else {
-                lockThis(getApplicationContext(), PKG_NAME);
+                lockThisOrNot(getApplicationContext(), PKG_NAME, sIsLocked);
                 sIsLocked = !sIsLocked;
             }
-
-            updateMenu();
 
             return true;
         }
@@ -93,7 +91,7 @@ public class AppLockBridge extends AppCompatActivity {
     private void updateMenu() {
         if (menu != null) {
             MenuItem mi = menu.findItem(R.id.action_lock_gallery);
-            if (checkIfLocked(this, PKG_NAME)) {
+            if (sIsLocked) {
                 mi.setTitle(R.string.action_unlock_gallery);
             } else {
                 mi.setTitle(R.string.action_lock_gallery);
@@ -102,7 +100,7 @@ public class AppLockBridge extends AppCompatActivity {
     }
 
     public void onLockThis(View view) {
-        lockThis(this, PKG_NAME);
+        lockThisOrNot(this, PKG_NAME, sIsLocked);
     }
 
     public void onCheckClick(View view) {
@@ -127,6 +125,9 @@ public class AppLockBridge extends AppCompatActivity {
         DialogFragment dialog = new ActivateDialog();
         dialog.show(getSupportFragmentManager(), "ActivateDialog");
     }
+
+
+
 
     // -- API --
 
@@ -159,20 +160,23 @@ public class AppLockBridge extends AppCompatActivity {
     }
 
     void sendGaMenuDisplay(String pkg) {
-        Log.d("mignchun", "sendGaMenuDisplay");
-
         Intent intent = new Intent();
         intent.setAction("asus.intent.action.APP_LOCK");
-        intent.putExtra("PackageName", pkg);
-        intent.putExtra("Todo", "SendAnalytics");
+        intent.putExtra(TODO, TODO_SEND_GA);
+        intent.putExtra(PACKAGE_NAME, pkg);
         sendBroadcast(intent);
     }
 
-    public static void lockThis(Context context, String pkg) {
+    public static void lockThisOrNot(Context context, String pkg, Boolean isLock) {
         Intent intent = new Intent();
         intent.setAction("asus.intent.action.APP_LOCK");
-        intent.putExtra("PackageName", pkg);
-        intent.putExtra("Todo", "LockThis");
+        if (isLock) {
+            intent.putExtra(TODO, TODO_UNLOCK);
+            intent.putExtra(PACKAGE_NAME, pkg);
+        } else {
+            intent.putExtra(TODO, TODO_LOCK);
+            intent.putExtra(PACKAGE_NAME, pkg);
+        }
         context.sendBroadcast(intent);
     }
 
