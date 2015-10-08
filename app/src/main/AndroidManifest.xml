@@ -18,6 +18,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <receiver
+            android:name=".AppLockReceiver">
+            <intent-filter>
+                <action android:name="asus.intent.action.APP_LOCK_ACK" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

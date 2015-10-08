@@ -24,7 +24,7 @@ public class UpgradeDialog extends DialogFragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AppLockBridge.toPlay(getActivity());
+                AppLockAPI.toPlay(getActivity());
                 dialog.dismiss();
             }
         });

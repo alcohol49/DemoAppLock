@@ -24,7 +24,7 @@ public class ActivateDialog extends DialogFragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AppLockBridge.lockThisOrNot(getActivity(), AppLockBridge.PKG_NAME, AppLockBridge.sIsLocked);
+                AppLockAPI.lockThisOrNot(getActivity(), AppLockBridge.PKG_NAME, AppLockBridge.sIsLocked);
                 dialog.dismiss();
             }
         });
