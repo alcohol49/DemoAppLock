@@ -14,7 +14,6 @@ public class AppLockBridge extends AppCompatActivity {
     public static boolean sIsLocked;
     public static boolean sActionLock;
 
-    private Menu mMenu;
     private MenuItem mAppLockMenu;
     private boolean mFirstTime = true;
 
